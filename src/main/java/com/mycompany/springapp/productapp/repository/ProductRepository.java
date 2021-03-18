@@ -44,7 +44,7 @@ public class ProductRepository {
     }
 
     //Logic for updating a product's price based on product ID
-    public ProductModel updateProduct(long id,double price)
+    public ProductModel updateProduct(long id,ProductModel productModel)
     {
         ProductModel pm = null;
         //logic for updating the product based on product ID
@@ -54,7 +54,8 @@ public class ProductRepository {
             if(pm.getId() == id)
             {
                 //if product is found, then update the product
-                pm.setPrice(price);
+                pm.setPrice(productModel.getPrice());
+                pm.setDescription(productModel.getDescription());
                 this.productsList.set(i,pm);
                 break;
             }

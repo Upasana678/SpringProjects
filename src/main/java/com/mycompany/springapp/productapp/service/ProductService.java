@@ -29,10 +29,10 @@ public class ProductService {
         ProductModel productModel = pr.deleteProduct(id);
         return productModel;
     }
-    public ProductModel updateProduct(long id,double price)
+    public ProductModel updateProduct(long id, ProductModel productModel)
     {
-        ProductModel productModel = pr.updateProduct(id,price);
-        return productModel;
+        ProductModel productModel1 = pr.updateProduct(id,productModel);
+        return productModel1;
     }
     public List<ProductModel> searchProductByDescription(String description)
     {

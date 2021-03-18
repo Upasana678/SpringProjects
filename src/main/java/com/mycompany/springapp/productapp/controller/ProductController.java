@@ -46,11 +46,12 @@ public class ProductController {
         return res;
     }
 
-    @PutMapping(value = "/products/{id}/{price}")
-    public ResponseEntity<ProductModel> updateProduct(@PathVariable("id") Long id,@PathVariable("price") double price)
+    @PutMapping(value = "/products/{id}")
+    public ResponseEntity<ProductModel> updateProduct(@PathVariable("id") Long id,
+                                                      @RequestBody ProductModel productModel)
     {
-        ProductModel productModel = ps.updateProduct(id,price);
-        ResponseEntity<ProductModel> res = new ResponseEntity<ProductModel>(productModel,HttpStatus.OK);
+        ProductModel productModel1 = ps.updateProduct(id,productModel);
+        ResponseEntity<ProductModel> res = new ResponseEntity<ProductModel>(productModel1,HttpStatus.OK);
 
         return res;
     }
