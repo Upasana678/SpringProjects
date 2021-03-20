@@ -20,11 +20,11 @@ public class ProductController {
     private ProductService ps;
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductModel>> getAllProducts()
+    public ResponseEntity<Iterable<ProductModel>> getAllProducts()
     {
-        List<ProductModel> list = ps.getAllProducts();
+        Iterable<ProductModel> list = ps.getAllProducts();
 
-        return (new ResponseEntity<List<ProductModel>>(list, HttpStatus.OK));
+        return (new ResponseEntity<Iterable<ProductModel>>(list, HttpStatus.OK));
     }
 
     @PostMapping(path = "/products", consumes = {"application/json"}, produces = {"application/json"})
