@@ -58,6 +58,27 @@ public class ProductService {
         }
         return productModel1;
     }
+    public ProductModel update(long id, ProductModel productModel)
+    {
+        ProductModel productModel1 = null;
+        Optional<ProductModel> optProduct = pcr.findById(id);
+        if(optProduct.isPresent()){
+            ProductModel product = optProduct.get();
+         if(productModel.getPrice()!=0.0)
+         {
+             product.setPrice(productModel.getPrice());
+         }
+         if(productModel.getDescription() != null)
+         {
+             product.setDescription(productModel.getDescription());
+         }
+            productModel1 = product;
+            pcr.save(product);
+        }else {
+            System.out.println("No matching product found");
+        }
+        return productModel1;
+    }
     public List<ProductModel> searchProductByDescription(String description)
     {
         List<ProductModel> productsList = pr.searchProductByDescription(description);
@@ -70,7 +91,17 @@ public class ProductService {
     }
     public ProductModel searchProductById(long id)
     {
-        ProductModel productModel = pr.searchProductById(id);
-        return productModel;
+        ProductModel product = null;
+        Optional<ProductModel> searchProduct = pcr.findById(id);
+        if(searchProduct.isPresent())
+        {
+            product = searchProduct.get();
+        }
+        else
+        {
+            System.out.println("No product found");
+        }
+        //ProductModel productModel = pr.searchProductById(id);
+        return product;
     }
 }

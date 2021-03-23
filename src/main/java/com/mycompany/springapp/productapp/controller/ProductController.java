@@ -55,6 +55,16 @@ public class ProductController {
 
         return res;
     }
+    @PutMapping(value = "/products/update/{id}")
+    public ResponseEntity<ProductModel> updateAnyOne(@PathVariable("id") Long id,
+                                                      @RequestBody ProductModel productModel)
+    {
+        ProductModel productModel1 = ps.update(id,productModel);
+        ResponseEntity<ProductModel> res = new ResponseEntity<ProductModel>(productModel1,HttpStatus.OK);
+
+        return res;
+    }
+
 
     @GetMapping(value = "/products/search")
     public ResponseEntity<List<ProductModel>> searchProduct(@RequestParam("description") String description,
