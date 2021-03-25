@@ -1,6 +1,8 @@
 package com.mycompany.springapp.productapp.service;
 
+import com.mycompany.springapp.productapp.model.CategoryModel;
 import com.mycompany.springapp.productapp.model.ProductModel;
+import com.mycompany.springapp.productapp.repository.CategoryRepository;
 import com.mycompany.springapp.productapp.repository.ProductCrudRepository;
 import com.mycompany.springapp.productapp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class ProductService {
 
     @Autowired
     private ProductCrudRepository pcr;
+    @Autowired
+    private CategoryRepository cr;
 
     public Iterable<ProductModel> getAllProducts()
     {
@@ -26,6 +30,8 @@ public class ProductService {
 
     public ProductModel createProduct(ProductModel productModel)
     {
+        Optional<CategoryModel>  optCategory = cr.findById(productModel.getCategoryModel().getCategoryId());
+        productModel.setCategoryModel(optCategory.get());
         productModel = pcr.save(productModel);//pr.createProduct(productModel);
         return productModel;
     }

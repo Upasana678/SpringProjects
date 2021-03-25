@@ -14,6 +14,10 @@ public class ProductModel implements Serializable {
     private String description;
     @Column(name= "PRODUCT_PRICE")
     private double price;
+    @ManyToOne(fetch = FetchType.LAZY)//Fetchtype.LAZY means don't fetch the child data while fetching the parent.
+    //In this case, whenever the product will be fetched from the database categoryModel variable will be null inorder to improove peformance
+    @JoinColumn(name = "CATEGORY_ID")
+    private CategoryModel categoryModel;
 
     public long getId() {
         return id;
@@ -37,5 +41,13 @@ public class ProductModel implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public CategoryModel getCategoryModel() {
+        return categoryModel;
+    }
+
+    public void setCategoryModel(CategoryModel categoryModel) {
+        this.categoryModel = categoryModel;
     }
 }
