@@ -4,6 +4,7 @@ package com.mycompany.springapp.productapp.controller;
 import com.mycompany.springapp.productapp.model.ProductModel;
 import com.mycompany.springapp.productapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
+    @Value("${myproperty}")
+    private String dummyField;
+
+    @Value("${spring.datasource.username}")
+    private String dbUser;
+
     @Autowired
     private ProductService ps;
 
     @GetMapping("/products")
     public @ResponseBody ResponseEntity<Iterable<ProductModel>> getAllProducts()
     {
+        System.out.println(dummyField);
+        System.out.println(dbUser);
+
         Iterable<ProductModel> list = ps.getAllProducts();
 
         return (new ResponseEntity<Iterable<ProductModel>>(list, HttpStatus.OK));
