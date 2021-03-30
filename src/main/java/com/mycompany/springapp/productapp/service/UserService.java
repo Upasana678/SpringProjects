@@ -1,5 +1,6 @@
 package com.mycompany.springapp.productapp.service;
 
+import com.mycompany.springapp.productapp.exception.BusinessException;
 import com.mycompany.springapp.productapp.model.AddressModel;
 import com.mycompany.springapp.productapp.model.UserModel;
 import com.mycompany.springapp.productapp.repository.AddressOfUserRepository;
@@ -26,9 +27,20 @@ public class UserService {
         return 0L;
     }
 
-    public UserModel register(UserModel userModel)
-    {
-        userModel = ucr.save(userModel);
+    public UserModel register(UserModel userModel) throws BusinessException {
+        //Logic for finding whether user with this phone number exists or not
+        String phoneNumber = userModel.getPhoneNumber();
+        Optional<UserModel> optUserPhoneNumber = ucr.findByPhoneNumber(phoneNumber);
+        if(optUserPhoneNumber.isPresent())
+        {
+            BusinessException be = new BusinessException("Auth_001","User with this phone number already exists.Try with another phone number");
+            throw be;
+        }
+        else
+        {
+            ucr.save(userModel);
+        }
+
         return userModel;
     }
 
