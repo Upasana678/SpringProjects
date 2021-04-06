@@ -14,4 +14,13 @@ public class BusinessExceptionHandler {
         ResponseEntity<String>  res = new ResponseEntity<>(be.getErrorCode()+" - "+be.getErrorMessage(), HttpStatus.CONFLICT);
         return res;
     }
+
+    @ExceptionHandler(ProductCreationException.class)
+    public ResponseEntity<String> handleProductCreationException(ProductCreationException pce,WebRequest req)
+    {
+        ResponseEntity<String> res = new ResponseEntity<>(pce.getErrorMessage()+"-"+pce.getErrorCode(),HttpStatus.CONFLICT);
+        return res;
+    }
+
+
 }

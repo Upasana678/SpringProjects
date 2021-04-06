@@ -1,6 +1,7 @@
 package com.mycompany.springapp.productapp.controller;
 
 
+import com.mycompany.springapp.productapp.exception.ProductCreationException;
 import com.mycompany.springapp.productapp.model.ProductModel;
 import com.mycompany.springapp.productapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,11 @@ public class ProductController {
     }
 
     @PostMapping(path = "/products", consumes = {"application/json"}, produces = {"application/json"})
-    public @ResponseBody ResponseEntity<ProductModel> createProduct(@RequestBody ProductModel productModel)
-    {
+    public ResponseEntity<?> createProduct(@RequestBody ProductModel productModel) throws ProductCreationException {
         System.out.println("create product");
-
+        ResponseEntity<?> res = null;
         productModel = ps.createProduct(productModel);
-        ResponseEntity<ProductModel> res = new ResponseEntity<ProductModel>(productModel, HttpStatus.CREATED);
-
+        res = new ResponseEntity<>(productModel, HttpStatus.CREATED);
         return res;
     }
     @DeleteMapping(value = "/products/{id}")
@@ -81,7 +80,7 @@ public class ProductController {
                                                             @RequestParam("fromPrice") double fromPrice,
                                                             @RequestParam("toPrice") double toPrice)
     {
-        List<ProductModel> productsList = ps.searchProduct(description,fromPrice,toPrice);
+        List<ProductModel> productsList = ps.searchProductByPrice(description,fromPrice,toPrice);
         ResponseEntity<List<ProductModel>> res = new ResponseEntity<List<ProductModel>>(productsList,HttpStatus.OK);
         return res;
     }

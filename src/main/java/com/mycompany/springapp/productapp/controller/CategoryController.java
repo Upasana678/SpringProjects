@@ -15,7 +15,7 @@ public class CategoryController {
     @Autowired
     private CategoryService cs;
 
-    @PostMapping("/category/createCategory")
+    @PostMapping("/categories/createCategory")
     public ResponseEntity<CategoryModel> createCategory(@RequestBody CategoryModel category)
     {
         category = cs.createCategory(category);
@@ -23,7 +23,7 @@ public class CategoryController {
         return response;
     }
 
-    @GetMapping("/category/getCategory")
+    @GetMapping("/categories/getCategory")
     public ResponseEntity<Iterable<CategoryModel>> getCategory()
     {
         Iterable<CategoryModel> categoryList = cs.getCategories();
@@ -31,7 +31,7 @@ public class CategoryController {
         return response;
     }
 
-    @PutMapping("/category/updateCategory/{id}")
+    @PutMapping("/categories/updateCategory/{id}")
     public ResponseEntity<CategoryModel> updateCategory(@PathVariable Long id,@RequestBody CategoryModel category)
     {
         CategoryModel category1 = cs.updateCategory(id,category);
@@ -39,7 +39,7 @@ public class CategoryController {
         return response;
     }
 
-    @DeleteMapping("category/deleteCategory/{id}")
+    @DeleteMapping("categories/deleteCategory/{id}")
     public ResponseEntity<CategoryModel> deleteCategory(@PathVariable Long id)
     {
         CategoryModel category = cs.deleteCategory(id);
