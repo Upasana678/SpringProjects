@@ -3,6 +3,8 @@ package com.mycompany.springapp.productexception.service;
 import com.mycompany.springapp.productexception.exception.ProductException;
 import com.mycompany.springapp.productexception.model.ProductExceptionModel;
 import com.mycompany.springapp.productexception.repository.ProductExceptionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ProductExceptionService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductExceptionService.class);
 
     @Autowired
     private ProductExceptionRepository per;
@@ -34,6 +37,7 @@ public class ProductExceptionService {
         if(productOptional.isPresent())
         {
             ProductException pe = new ProductException("This product already exists.","Auth_001");
+            LOGGER.info("Product already exists");
             throw pe;
         }
         else
@@ -59,6 +63,7 @@ public class ProductExceptionService {
         else
         {
             ProductException pe = new ProductException("This product with id ="+id+"doesn't exist","Auth_002");
+            LOGGER.info("Product doesn't exist");
             throw pe;
         }
         return productDeleted;
@@ -90,6 +95,7 @@ public class ProductExceptionService {
         else
         {
             ProductException pe = new ProductException("This product with id="+id+" doesn't exist","Auth_003");
+            LOGGER.info("This product doesn't exist");
             throw pe;
         }
         return product1;
