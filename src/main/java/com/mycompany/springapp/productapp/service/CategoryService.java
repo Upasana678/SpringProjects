@@ -17,7 +17,7 @@ public class CategoryService {
     public CategoryModel createCategory(CategoryModel category)
     {
         CategoryModel categoryModel;
-        categoryModel = cr.save(category);
+        categoryModel = cr.save(category);//when cr.save() than return a category model which has id inside
         return categoryModel;
     }
 
