@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +60,52 @@ public class CategoryServiceTest {
 
         List<CategoryModel> categories = (List<CategoryModel>)categoryService.getCategories();
         Assertions.assertEquals(categories.size(), 1);
+    }
+    @Test
+    public void test_update_category()
+    {
+        CategoryModel cm = new CategoryModel();
+        cm.setCategoryId(1L);
+        cm.setCategoryName("Electronics");
+
+        CategoryModel cm1 = new CategoryModel();
+        cm1.setCategoryId(1L);
+        cm1.setCategoryName("Paints");
+
+        Mockito.when(categoryRepository.findById(cm.getCategoryId())).thenReturn(Optional.of(cm));
+        Mockito.when(categoryRepository.save(cm)).thenReturn(cm1);
+
+        CategoryModel cm4 = categoryService.updateCategory(cm.getCategoryId(),cm1);
+
+        Assertions.assertEquals(cm4.getCategoryName(),cm1.getCategoryName(),"Test not passed because you have not updated the category");
+
+    }
+    @Test
+    public void test_update_category_ctaegoryNotFound()
+    {
+        CategoryModel cm = new CategoryModel();
+        cm.setCategoryId(1L);
+        cm.setCategoryName("Electronics");
+
+        Mockito.when(categoryRepository.findById(cm.getCategoryId())).thenReturn(Optional.empty());
+
+        CategoryModel cm4 = categoryService.updateCategory(cm.getCategoryId(),cm);
+
+        Assertions.assertNull(cm4,"Test not passed because category was found");
+
+    }
+    @Test
+    public void test_delete_category()
+    {
+        CategoryModel cc1 = new CategoryModel();
+        cc1.setCategoryId(1L);
+        cc1.setCategoryName("Fruits");
+
+        Mockito.when(categoryRepository.findById(cc1.getCategoryId())).thenReturn(Optional.of(cc1));
+        Mockito.doNothing().when(categoryRepository).delete(cc1);
+
+        CategoryModel cm1 = categoryService.deleteCategory(cc1.getCategoryId());
+        Assertions.assertEquals(cc1.getCategoryId(), cm1.getCategoryId(),"This test failed because you have not deleted one of the categories");
+
     }
 }

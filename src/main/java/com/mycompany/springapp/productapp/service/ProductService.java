@@ -28,7 +28,6 @@ public class ProductService {
         return productModelList;
     }
 
-
     public ProductModel createProduct(ProductModel productModel) throws ProductCreationException {
         //This is the logic of creating a product with exception.
         //If the product is already present then it throws an exception
