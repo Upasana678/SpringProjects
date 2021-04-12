@@ -30,9 +30,9 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.mycompany" level="info" additivity="false">
+    <!--<logger name="com.mycompany" level="info" additivity="false">
         <appender-ref ref="FILE-ROLLING"/>
-    </logger>
+    </logger>-->
 
     <!--<root level="error">
         <appender-ref ref="FILE-ROLLING"/>
